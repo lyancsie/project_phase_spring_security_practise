@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead>
+        <tr>
+            <th>Tourist attraction name</th>
+            <th>Latitude</th>
+            <th>City</th>
+            <th>Vote</th>
+            <th>Votes</th>
+            <th>Date</th>
+            <th>Person name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="attraction : ${attractions}" th:object="${attraction}">
+            <td th:text="*{name}"></td>
+            <td th:text="*{latitude}"></td>
+            <td th:text="*{city}"></td>
+            <td>
+                <a th:href="|/upvote/*{id}|">+</a>
+                <a th:href="|/downvote/*{id}|">-</a>
+            </td>
+            <td th:text="*{votes}"></td>
+            <td th:text="*{date}"></td>
+            <!--<td th:text="*{person.getName()}"></td>-->
+            <td><a class="btn btn-danger" th:href="|/edit/*{id}|">EDIT</a></td>
+            <td>
+                <form th:method="DELETE" th:action="|/delete/*{id}|">
+                    <input class="btn btn-warning" type="submit" value="DELETE">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="center-block">
+    <form th:method="POST" th:action="@{add}">
+        <label for="name">Name:</label>
+        <input class="special-text" type="text" id="name" required pattern=".{2,}">
+        <label for="lat">Latitude:</label>
+        <input class="special-text" type="text" id="lat" name="latitude" required pattern="^(\d*\.)?\d+$">
+        <label for="city">City:</label>
+        <input class="special-text" type="text" id="city" name="city" required pattern=".{2,}">
+        <input class="btn btn-danger" type="submit">
+    </form>
+    <br>
+    <form class="form-horizontal" th:method="GET" th:action="@{|/edit/${attractionToEdit.getId()}|}">
+        <!--<input type="hidden" th:value="${attractionToEdit.person_id}">-->
+        <label for="name2">Name:</label>
+        <input class="special-text" type="text" id="name2" name="name" required th:field="${attractionToEdit.name}">
+        <label for="lat2">Latitude:</label>
+        <input class="special-text" type="text" id="lat2" name="latitude" required
+               th:field="${attractionToEdit.latitude}">
+        <label for="city2">City:</label>
+        <input class="text-input-context-menu" id="city2" type="text" name="city" th:field="${attractionToEdit.city}">
+        <input class="btn btn-danger" type="submit">
+    </form>
+</div>
+<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+</html>
