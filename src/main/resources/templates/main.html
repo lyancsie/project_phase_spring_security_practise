@@ -9,6 +9,13 @@
 </head>
 <body>
 <div class="container">
+    <!--<span th:text="${#authentication.principal.username}"></span> -->
+    <form th:method="GET" th:action="|/logout|">
+        <input class="btn btn-success" type="submit" value="LOG OUT">
+    </form>
+</div>
+<br>
+<div class="container">
     <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
         <tr>
@@ -32,8 +39,9 @@
             </td>
             <td th:text="*{votes}"></td>
             <td th:text="*{date}"></td>
-            <!--<td th:text="*{person.getName()}"></td>-->
+            <td th:text="*{person.getName()}"></td>
             <td><a class="btn btn-danger" th:href="|/edit/*{id}|">EDIT</a></td>
+
             <td>
                 <form th:method="DELETE" th:action="|/delete/*{id}|">
                     <input class="btn btn-warning" type="submit" value="DELETE">

@@ -35,7 +35,7 @@ public class AttractionService {
     return attractionRepository.findById(id);
   }
   
-  public Optional<Attraction> findByPerson(Person person) {
+  Optional<Attraction> findByPerson(Person person) {
     return attractionRepository.findByPerson(person);
   }
   

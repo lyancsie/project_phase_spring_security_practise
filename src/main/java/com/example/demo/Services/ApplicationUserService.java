@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationUserService {
   
-  ApplicationUserRepository applicationUserRepository;
+  private ApplicationUserRepository applicationUserRepository;
   
   @Autowired
   public ApplicationUserService(ApplicationUserRepository applicationUserRepository) {
     this.applicationUserRepository = applicationUserRepository;
   }
   
-  ApplicationUser findByUsername(String username) {
+  public ApplicationUser findByUsername(String username) {
     return applicationUserRepository.findByUsername(username);
   }
   

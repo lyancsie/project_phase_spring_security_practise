@@ -26,6 +26,7 @@ public class AttractionController {
       model.addAttribute("attractionToEdit", attraction);
     }*/
     model.addAttribute("attractions", attractionService.findAll());
+    //model.addAttribute("user", applicationUser);
     return "main";
     
   }
@@ -37,10 +38,10 @@ public class AttractionController {
   }
   
   @PostMapping("/")
-  String mainPost(Model model, @ModelAttribute(value = "attractionToEdit") Attraction attraction) throws Exception {
-    if (attraction != null) {
-      model.addAttribute("attractionToEdit", attraction);
-      attractionService.save(attractionService.findById(attraction.getId()).orElseThrow(Exception::new));
+  String mainPost(Model model, @ModelAttribute(value = "attractionToEdit") Attraction attractionToEdit) throws Exception {
+    if (attractionToEdit != null) {
+      model.addAttribute("attractionToEdit", attractionToEdit);
+      attractionService.save(attractionService.findById(attractionToEdit.getId()).orElseThrow(Exception::new));
     }
     return "redirect:/";
   }

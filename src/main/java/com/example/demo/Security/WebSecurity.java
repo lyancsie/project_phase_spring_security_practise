@@ -33,8 +33,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     //ToDo
     http.cors().and().csrf().disable().authorizeRequests()
         .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+        .antMatchers(HttpMethod.POST, "/login").permitAll()
         .antMatchers(HttpMethod.GET, "/login").permitAll()
-        .antMatchers(HttpMethod.GET, "/").authenticated()
+        .antMatchers(HttpMethod.GET, "/").permitAll()
         .antMatchers(HttpMethod.GET, UPVOTE_URL).authenticated()
         .antMatchers(HttpMethod.GET, DOWNVOTE_URL).authenticated()
         .antMatchers(HttpMethod.POST, LOG_OUT_URL).authenticated()
@@ -46,6 +47,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         .addFilter(new JWTAuthorizationFilter(authenticationManager()))
         // this disables session creation on Spring Security
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .formLogin()
+        .and()
+        .logout()
         .and()
         .exceptionHandling()
         .authenticationEntryPoint(new Http401AuthenticationEntryPoint("No authorization"));
