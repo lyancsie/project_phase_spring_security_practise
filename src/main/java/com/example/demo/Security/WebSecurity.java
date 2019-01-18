@@ -33,8 +33,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     //ToDo
     http.cors().and().csrf().disable().authorizeRequests()
         .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-        .antMatchers(HttpMethod.POST, "/login").permitAll()
-        .antMatchers(HttpMethod.GET, "/login").permitAll()
+        .antMatchers(HttpMethod.POST, "/login/**").permitAll()
+        .antMatchers(HttpMethod.GET, "/login/**").permitAll()
         .antMatchers(HttpMethod.GET, "/").permitAll()
         .antMatchers(HttpMethod.GET, UPVOTE_URL).authenticated()
         .antMatchers(HttpMethod.GET, DOWNVOTE_URL).authenticated()
